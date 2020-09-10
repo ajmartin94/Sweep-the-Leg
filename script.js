@@ -28,10 +28,15 @@ for (let i = 1; i <= rows; i++) {
         gridDiv.setAttribute('data-col', j);
         gridDiv.setAttribute('data-row', i);
         
-        gridDiv.setAttribute('click',() => {
+        gridDiv.addEventListener('click',function revealNumber(event) {
             gridDiv.classList.remove('hidden');
             gridDiv.classList.add('revealed')
             
+            const pTag = document.createElement('p');
+            pTag.innerText = `${gridData[gridDiv.dataset.row-1][gridDiv.dataset.col-1]}`;
+            gridDiv.appendChild(pTag);
+
+            gridDiv.removeEventListener('click',revealNumber);
         })
     }
 }
