@@ -29,14 +29,21 @@ for (let i = 1; i <= rows; i++) {
         gridDiv.setAttribute('data-row', i);
         
         gridDiv.addEventListener('click',function revealNumber(event) {
-            gridDiv.classList.remove('hidden');
-            gridDiv.classList.add('revealed')
-            
-            const pTag = document.createElement('p');
-            pTag.innerText = `${gridData[gridDiv.dataset.row-1][gridDiv.dataset.col-1]}`;
-            gridDiv.appendChild(pTag);
+            gridDiv.style['box-shadow'] = '0 0 3px 0 black inset';
 
-            gridDiv.removeEventListener('click',revealNumber);
+            setTimeout(() => {
+                gridDiv.classList.remove('hidden');
+                gridDiv.classList.add('revealed')
+                
+                const pTag = document.createElement('p');
+                pTag.innerText = `${gridData[gridDiv.dataset.row-1][gridDiv.dataset.col-1]}`;
+                gridDiv.appendChild(pTag);
+
+                gridDiv.style['box-shadow'] = '';
+
+                gridDiv.removeEventListener('click',revealNumber);
+            },80)
+            
         })
     }
 }

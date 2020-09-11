@@ -74,7 +74,7 @@ body {
 }
 
 .hidden:hover {
-    box-shadow: 0 0 3px 0 black inset;
+    box-shadow: 0 0 3px 0 black;
 }
 
 .revealed {
