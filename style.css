@@ -42,6 +42,10 @@ body {
     height: 100%;
     width: 100%;
     background: #808080de;
+    z-index: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #gameBoard {
@@ -83,24 +87,25 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.hidden {
-    background: grey;
-}
-
-.hidden:hover {
-    box-shadow: 0 0 1px 0 black;
-}
-
-.revealed {
     background: white;
+    position: relative;
+}
+
+.gridCover {
+    background: grey;
+    position: absolute;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.revealed p {
+.hidden:hover {
+    box-shadow: 0 0 3px 0 black;
+}
+
+.mineGrid p {
     text-align: center;
     font-family: sans-serif;
     font-size: 12px;
@@ -108,8 +113,32 @@ body {
 
 .mine {
     background: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .flag {
     height: 95%;
+}
+
+.buttons {
+    display: none;
+    justify-content: center;
+}
+
+#gameOverlay h2 {
+    text-align: center;
+}
+
+#gameReport {
+    display: none;
+}
+
+#difficulty {
+    display: none;
+}
+
+#play {
+    display: none;
 }
