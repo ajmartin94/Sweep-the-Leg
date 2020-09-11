@@ -137,21 +137,25 @@ for (let i = 1; i <= rows; i++) {
         gridDiv.setAttribute('data-row', i-1);
         
         gridDiv.addEventListener('click',function clickFunction(event) {
-            if (noClicks) {
-                populateGrid.bind(gridDiv)();
-                noClicks = false;
+            const existingFlag = gridDiv.querySelector('.flag');
+
+            if (!existingFlag) {
+                if (noClicks) {
+                    populateGrid.bind(gridDiv)();
+                    noClicks = false;
+                }
+
+                gridDiv.style['box-shadow'] = '0 0 3px 0 black inset';
+
+                setTimeout(() => {
+                    revealNumber.bind(gridDiv)();
+
+                    gridDiv.style['box-shadow'] = '';
+                    
+                },80)
+
+                gridDiv.removeEventListener('click',clickFunction);
             }
-
-            gridDiv.style['box-shadow'] = '0 0 3px 0 black inset';
-
-            setTimeout(() => {
-                revealNumber.bind(gridDiv)();
-
-                gridDiv.style['box-shadow'] = '';
-                
-            },80)
-
-            gridDiv.removeEventListener('click',clickFunction);
         })
 
         gridDiv.addEventListener('contextmenu', (e) => {
