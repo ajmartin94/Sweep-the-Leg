@@ -22,10 +22,10 @@ function clearZeros() {
             const notCurrentGrid = !((a === 0) && (b === 0));
 
             if (notBelowGrid && notAboveGrid && notCurrentGrid)  {
-                if (gridData[row][col] === 0) {
-                    const gridCol = document.querySelectorAll(`[data-col='${col}']`);
-                    const gridSqr = [...gridCol].filter((sqr) => sqr.dataset.row === `${row}`);
-                    console.log(gridSqr);
+                const gridCol = document.querySelectorAll(`[data-col='${col}']`);
+                const gridSqr = [...gridCol].filter((sqr) => sqr.dataset.row === `${row}`);
+                console.log(gridSqr[0]);
+                if (gridSqr[0].classList.contains('hidden')) {
                     revealNumber.bind(gridSqr[0])();
                 }   
             }
@@ -37,7 +37,7 @@ function revealNumber() {
     this.classList.remove('hidden');
     this.classList.add('revealed')
 
-    const gridNum = gridData[this.dataset.row-1][this.dataset.col-1];
+    const gridNum = gridData[this.dataset.row][this.dataset.col];
 
     if (gridNum === 9) {
         loseSequence.bind(this)();
@@ -63,7 +63,7 @@ const cols = 10;
 gameBoard.style['grid-template-rows'] = `repeat(${rows},20px`;
 gameBoard.style['grid-template-columns'] = `repeat(${cols},20px`;
 
-const totalMines = 10;
+const totalMines = 20;
 let goodSquares = rows*cols - totalMines;
 
 let gridData = [];
@@ -84,7 +84,7 @@ for (let i = 0; i < totalMines; i++) {
 }
 
 for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < rows; j++) {
+    for (let j = 0; j < cols; j++) {
 
         let sum = 0;
 
@@ -98,8 +98,6 @@ for (let i = 0; i < rows; i++) {
                     if (gridData[i+a][j+b] === 9) {
                         sum++;
                     }
-                } else {
-                    // console.log('Skipped '+a+' '+b+' at '+i+' '+j+' because '+notBelowGrid+notAboveGrid+notCurrentGrid);
                 }
             }
         }
