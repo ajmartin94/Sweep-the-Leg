@@ -1,51 +1,86 @@
+function loseSequence() {
+    this.classList.add('mine');
+
+    gameOverlay.style.display = 'block';
+}
+
+function winSequence() {
+    gameOverlay.style.display = 'block';
+}
+
+function clearZeros() {
+    const startRow = parseInt(this.dataset.row);
+    const startCol = parseInt(this.dataset.col);
+
+    for (let a = -1; a <= 1; a++) {
+        for (let b = -1; b <= 1; b++) {
+            const row = startRow + a;
+            const col = startCol + b;
+            
+            const notBelowGrid = row >= 0 && col >= 0;
+            const notAboveGrid = row < rows && col < cols;
+            const notCurrentGrid = !((a === 0) && (b === 0));
+
+            if (notBelowGrid && notAboveGrid && notCurrentGrid)  {
+                if (gridData[row][col] === 0) {
+                    const gridCol = document.querySelectorAll(`[data-col='${col}']`);
+                    const gridSqr = [...gridCol].filter((sqr) => sqr.dataset.row === `${row}`);
+                    console.log(gridSqr);
+                    revealNumber.bind(gridSqr[0])();
+                }   
+            }
+        }
+    }
+}
+
+function revealNumber() {
+    this.classList.remove('hidden');
+    this.classList.add('revealed')
+
+    const gridNum = gridData[this.dataset.row-1][this.dataset.col-1];
+
+    if (gridNum === 9) {
+        loseSequence.bind(this)();
+    } else if (gridNum === 0) {
+        clearZeros.bind(this)();
+    } else {
+        const pTag = document.createElement('p');
+        pTag.innerText = `${gridNum}`;
+        this.appendChild(pTag);
+        goodSquares--;
+    }
+
+    if (goodSquares === 0) {
+        winSequence();
+    }
+}
+
 const gameBoard = document.querySelector('#gameBoard');
-rows = 10;
-cols = 10;
+const gameOverlay = document.querySelector('#gameOverlay');
+
+const rows = 10;
+const cols = 10;
 gameBoard.style['grid-template-rows'] = `repeat(${rows},20px`;
 gameBoard.style['grid-template-columns'] = `repeat(${cols},20px`;
 
-let gridData = [
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,9,9,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,9,0,0,0],
-    [0,0,0,0,0,9,0,0,0,0],
-    [0,0,9,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0]
-]
+const totalMines = 10;
+let goodSquares = rows*cols - totalMines;
 
-for (let i = 1; i <= rows; i++) {
-    for (let j = 1; j <= cols; j++) {
-        const gridDiv = document.createElement('div');
-        gameBoard.appendChild(gridDiv);
-        gridDiv.classList.add('mineGrid','hidden');
-        gridDiv.style['grid-column'] = `${j}`;
-        gridDiv.style['grid-row'] = `${i}`;
+let gridData = [];
 
-        gridDiv.setAttribute('data-col', j);
-        gridDiv.setAttribute('data-row', i);
-        
-        gridDiv.addEventListener('click',function revealNumber(event) {
-            gridDiv.style['box-shadow'] = '0 0 3px 0 black inset';
-
-            setTimeout(() => {
-                gridDiv.classList.remove('hidden');
-                gridDiv.classList.add('revealed')
-                
-                const pTag = document.createElement('p');
-                pTag.innerText = `${gridData[gridDiv.dataset.row-1][gridDiv.dataset.col-1]}`;
-                gridDiv.appendChild(pTag);
-
-                gridDiv.style['box-shadow'] = '';
-
-                gridDiv.removeEventListener('click',revealNumber);
-            },80)
-            
-        })
+for (let i = 0; i < rows; i++) {
+    let temp = [];
+    for (let j = 0; j < cols; j++) {
+        temp.push(0);
     }
+    gridData.push(temp);
+}
+
+for (let i = 0; i < totalMines; i++) {
+    const mineRow = Math.round(Math.random() * (rows-1));
+    const mineCol = Math.round(Math.random() * (cols-1));
+
+    gridData[mineRow][mineCol] = 9;
 }
 
 for (let i = 0; i < rows; i++) {
@@ -64,7 +99,7 @@ for (let i = 0; i < rows; i++) {
                         sum++;
                     }
                 } else {
-                    console.log('Skipped '+a+' '+b+' at '+i+' '+j+' because '+notBelowGrid+notAboveGrid+notCurrentGrid);
+                    // console.log('Skipped '+a+' '+b+' at '+i+' '+j+' because '+notBelowGrid+notAboveGrid+notCurrentGrid);
                 }
             }
         }
@@ -74,3 +109,30 @@ for (let i = 0; i < rows; i++) {
         }
     }
 }
+
+for (let i = 1; i <= rows; i++) {
+    for (let j = 1; j <= cols; j++) {
+        const gridDiv = document.createElement('div');
+        gameBoard.appendChild(gridDiv);
+        gridDiv.classList.add('mineGrid','hidden');
+        gridDiv.style['grid-column'] = `${j}`;
+        gridDiv.style['grid-row'] = `${i}`;
+
+        gridDiv.setAttribute('data-col', j-1);
+        gridDiv.setAttribute('data-row', i-1);
+        
+        gridDiv.addEventListener('click',function clickFunction(event) {
+            gridDiv.style['box-shadow'] = '0 0 3px 0 black inset';
+
+            setTimeout(() => {
+                revealNumber.bind(gridDiv)();
+
+                gridDiv.style['box-shadow'] = '';
+                
+            },80)
+
+            gridDiv.removeEventListener('click',clickFunction);
+        })
+    }
+}
+

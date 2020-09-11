@@ -23,13 +23,25 @@ body {
 }
 
 #gameHeader {
-    background: white;
+    
 }
 
 #gameWrapper {
     display: flex; 
     justify-content: space-between;
     align-items: center;
+}
+
+#gameBoardWrapper {
+    position: relative;
+}
+
+#gameOverlay {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #808080de;
 }
 
 #gameBoard {
@@ -48,19 +60,20 @@ body {
 }
 
 #cursorOptions {
-    width: 100px;
+    /* width: 100px;
     height: 200px;
-    background: green;
+    background: green; */
 }
 
 #scoreboard {
-    width: 100px;
+    /* width: 100px;
     height: 200px;
-    background: purple;
+    background: purple; */
 }
 
 #gameHeader h1 {
     font-family: sans-serif;
+    line-height: 50%;
 }
 
 .mineGrid {
@@ -74,7 +87,7 @@ body {
 }
 
 .hidden:hover {
-    box-shadow: 0 0 3px 0 black;
+    box-shadow: 0 0 1px 0 black;
 }
 
 .revealed {
@@ -88,4 +101,8 @@ body {
     text-align: center;
     font-family: sans-serif;
     font-size: 12px;
+}
+
+.mine {
+    background: red;
 }
