@@ -100,8 +100,6 @@ function populateGrid() {
             }
         }
     }
-
-    console.table(gridData);
 }
 
 const gameBoard = document.querySelector('#gameBoard');
@@ -154,6 +152,23 @@ for (let i = 1; i <= rows; i++) {
             },80)
 
             gridDiv.removeEventListener('click',clickFunction);
+        })
+
+        gridDiv.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+
+            const existingFlag = gridDiv.querySelector('img');
+
+            if (!existingFlag) {
+                const flagImg = document.createElement('img');
+                flagImg.setAttribute('src','images/flag.png');
+                flagImg.classList.add('flag');
+                gridDiv.appendChild(flagImg);
+            } else {
+                existingFlag.remove();
+            }
+
+            return false;
         })
     }
 }
