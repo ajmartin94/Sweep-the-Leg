@@ -1,13 +1,9 @@
 function difficultyScreen() {
-    
     usernameInput.style.display = 'block';
     gameOverlay.style.display = 'flex';
     diffButtons.style.display = 'flex';
     diff.style.display = 'block';
     play.style.display = 'block';
-
-    time = 0;
-    timerText.innerText = '00:00';
 
     function newBoard(row,col,mine) {
         resetBoard(row,col,mine);
@@ -38,13 +34,13 @@ function difficultyScreen() {
 }
 
 function loseSequence() {
-    clearInterval(timer);
+    stopTimer();
 
     if (gameScore > 0) {
-        const scoreboard = document.querySelector('#scoreboard');
-        const scoreP = document.createElement('p');
-        scoreP.innerText = `${username} : ${gameScore}`;
-        scoreboard.appendChild(scoreP);
+        // const scoreboard = document.querySelector('#scoreboard');
+        // const scoreP = document.createElement('p');
+        // scoreP.innerText = `${username} : ${gameScore}`;
+        // scoreboard.appendChild(scoreP);
     }
 
     gameScore = 0;
@@ -54,13 +50,7 @@ function loseSequence() {
 
     gameOverlay.style.display = 'flex';
 
-    const report = gameOverlay.querySelector('#gameReport');
-    const text = gameOverlay.querySelector('#headerText');
-    const yes = gameOverlay.querySelector('#yes');
-    const no = gameOverlay.querySelector('#no');
-    const cont = gameOverlay.querySelector('#continue');
-    const playButtons = gameOverlay.querySelector('#playButtons');
-
+    usernameInput.style.display = 'none';
     report.style.display = 'block';
     playButtons.style.display = 'flex';
     cont.style.display = 'none';
@@ -100,7 +90,8 @@ function revealAll() {
 }
 
 function winSequence() {
-    clearInterval(timer);
+    stopTimer();
+
     gameScore += possibleScore - time;
 
     gameOverlay.style.display = 'flex';
@@ -227,8 +218,14 @@ function populateGrid(totalMines) {
 }
 
 function startTimer() {
+    time = 0;
+    timerText.innerText = '00:00';
+
+    stopTimer();
+
     timer = setInterval(() => {
         time ++;
+        console.log(time);
         let minutes = Math.floor(time/60);
         let seconds = time%60;
 
@@ -242,6 +239,10 @@ function startTimer() {
 
         timerText.innerHTML = `${minutes}:${seconds}`;
     },1000)
+}
+
+function stopTimer() {
+    clearInterval(timer);
 }
 
 function resetBoard(rows,cols,totalMines) {
@@ -326,6 +327,19 @@ function resetBoard(rows,cols,totalMines) {
     }
 }
 
+function populateScoreboard() {
+    let sortedScores = scoreboardScores.sort((a,b) => b.score - a.score);
+    scoreboard.innerHTML = '';
+
+    sortedScores.forEach(el => {
+        const scoreP = document.createElement('li');
+        scoreP.innerText = `${el.username} : ${el.score}`;
+        scoreboard.appendChild(scoreP);
+    })
+    
+    sessionStorage.setItem('scores',scoreboardScores);
+}
+
 const gameBoard = document.querySelector('#gameBoard');
 const gameOverlay = document.querySelector('#gameOverlay');
 const timerText = document.querySelector('#timer');
@@ -336,6 +350,10 @@ const report = gameOverlay.querySelector('#gameReport');
 const text = gameOverlay.querySelector('#headerText');
 const playButtons = gameOverlay.querySelector('#playButtons');
 const usernameInput = gameOverlay.querySelector('#username');
+const diffButtons = gameOverlay.querySelector('#difficultyButtons');
+const diff = gameOverlay.querySelector('#difficulty');
+const scoreboard = document.querySelector('#scoreboard');
+
 
 let goodSquares;
 let gridRows;
@@ -358,3 +376,28 @@ document.querySelector('#easyWin').addEventListener('click',() => {
     revealAll();
     winSequence();
 });
+
+scoreboardScores = [
+    {
+        username: 'bro',
+        score: 100
+    },
+    {
+        username: 'br2o',
+        score: 120
+    },
+    {
+        username: 'br2o',
+        score: 800
+    },
+    {
+        username: 'b3ro',
+        score: 720
+    },
+    {
+        username: 'b3ro',
+        score: 55
+    },
+];
+
+populateScoreboard();
