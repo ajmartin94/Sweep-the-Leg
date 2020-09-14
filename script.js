@@ -3,7 +3,6 @@ function difficultyScreen() {
     gameOverlay.style.display = 'flex';
     diffButtons.style.display = 'flex';
     diff.style.display = 'block';
-    play.style.display = 'block';
 
     function newBoard(row,col,mine) {
         resetBoard(row,col,mine);
@@ -21,14 +20,17 @@ function difficultyScreen() {
 
     easy.addEventListener('click',() => {
         newBoard(10,10,15);
+        play.style.display = 'block';
     })
 
     medium.addEventListener('click',() => {
         newBoard(20,20,60);
+        play.style.display = 'block';
     })
     
     hard.addEventListener('click',() => {
         newBoard(20,40,120);
+        play.style.display = 'block';
     })
 
 
@@ -183,7 +185,7 @@ function revealNumber() {
     const gridFrames = [
         {width: '100%',height: '100%', transform: 'rotate(0)'},
         {width: '120%', height: '120%',background: '#7986AC'},
-        {width: '0',height: '0',transform: 'rotate(360deg)'}
+        {width: '0',height: '0',transform: 'rotate(360deg)',background: 'none'}
     ]
     
     const gridNum = gridData[this.dataset.row][this.dataset.col];
