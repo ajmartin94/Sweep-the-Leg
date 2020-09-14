@@ -81,11 +81,11 @@ function revealOverlay() {
     gameOverlay.style['background-image'] = "url('images/fireworks.gif')";
 
     const overlayFrames = [
-        {background: '#805e1500'},
-        {background: '#805e15dc'}
+        {'background': '#805e1500'},
+        {'background': '#805e15dc'}
     ]
 
-    gameOverlay.animate(overlayFrames,4000);
+    gameOverlay.animate(overlayFrames,500);
 }
 function revealAll() {
     const gameGrid = gameBoard.querySelectorAll('.gridCover');

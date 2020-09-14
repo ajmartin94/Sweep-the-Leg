@@ -45,11 +45,13 @@ body {
     position: absolute;
     height: 100%;
     width: 100%;
-    background: #805e15dc;
+    background-size: auto 100%;
+    /* background-repeat: no-repeat; */
+    background-position: center;
+    background-color: #805e15dc;
     z-index: 1;
     justify-content: center;
     align-items: center;
-    background-size: cover;
 }
 
 #overlayWrapper {
