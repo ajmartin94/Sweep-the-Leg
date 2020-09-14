@@ -1,14 +1,13 @@
 function difficultyScreen() {
-    const diffButtons = gameOverlay.querySelector('#difficultyButtons');
-    const diff = gameOverlay.querySelector('#difficulty');
-    const play = gameOverlay.querySelector('#play');
-    const easy = gameOverlay.querySelector('#easy');
-    const medium = gameOverlay.querySelector('#medium');
-    const hard = gameOverlay.querySelector('#hard');
-
+    
+    usernameInput.style.display = 'block';
+    gameOverlay.style.display = 'flex';
     diffButtons.style.display = 'flex';
     diff.style.display = 'block';
     play.style.display = 'block';
+
+    time = 0;
+    timerText.innerText = '00:00';
 
     function newBoard(row,col,mine) {
         resetBoard(row,col,mine);
@@ -17,6 +16,9 @@ function difficultyScreen() {
             diffButtons.style.display = 'none';
             diff.style.display = 'none';
             play.style.display = 'none';
+
+            username = usernameInput.value;
+            startTimer();
         });
     }
 
@@ -36,12 +38,24 @@ function difficultyScreen() {
 }
 
 function loseSequence() {
+    clearInterval(timer);
+
+    if (gameScore > 0) {
+        const scoreboard = document.querySelector('#scoreboard');
+        const scoreP = document.createElement('p');
+        scoreP.innerText = `${username} : ${gameScore}`;
+        scoreboard.appendChild(scoreP);
+    }
+
+    gameScore = 0;
+
     addMine.bind(this)();
+    revealAll();
 
     gameOverlay.style.display = 'flex';
 
     const report = gameOverlay.querySelector('#gameReport');
-    const text = gameOverlay.querySelector('#headerText')
+    const text = gameOverlay.querySelector('#headerText');
     const yes = gameOverlay.querySelector('#yes');
     const no = gameOverlay.querySelector('#no');
     const cont = gameOverlay.querySelector('#continue');
@@ -50,6 +64,10 @@ function loseSequence() {
     report.style.display = 'block';
     playButtons.style.display = 'flex';
     cont.style.display = 'none';
+    yes.style.display = 'block';
+    no.style.display = 'block';
+
+    text.innerText = 'You lose. Play again?'
 
     yes.addEventListener('click',()=> {
         playButtons.style.display = 'none';
@@ -63,10 +81,44 @@ function loseSequence() {
     })
 }
 
+function revealAll() {
+    const gameGrid = gameBoard.querySelectorAll('.gridCover');
+
+    gameGrid.forEach(sqr => {
+        if (sqr.parentElement.classList.contains('hidden')) {
+            sqr.style.display = 'none';
+            sqr.parentElement.classList.remove('hidden');
+
+            if (gridData[sqr.dataset.row][sqr.dataset.col] === 9) {
+                addMine.bind(sqr.parentElement)();
+            } else {
+                const pTag = sqr.parentElement.querySelector('p');
+                pTag.innerText = `${gridData[sqr.dataset.row][sqr.dataset.col]}`;
+            }
+        }
+    })
+}
+
 function winSequence() {
+    clearInterval(timer);
+    gameScore += possibleScore - time;
+
     gameOverlay.style.display = 'flex';
 
+    usernameInput.style.display = 'none';
+    report.style.display = 'block';
+    playButtons.style.display = 'flex';
+    cont.style.display = 'block';
+    yes.style.display = 'none';
+    no.style.display = 'none';
 
+    text.innerText = 'You win! Keep playing to get more points.';
+
+    cont.addEventListener('click',() => {
+        playButtons.style.display = 'none';
+        report.style.display = 'none';
+        difficultyScreen();
+    })
 }
 
 function clearZeros() {
@@ -95,8 +147,13 @@ function clearZeros() {
 }
 
 function addMine() {
-    this.classList.add('mine');
+    this.classList.add('mineSqr');
 
+    const img = document.createElement('img');
+    img.setAttribute('src','images/mine.jpg');
+    img.classList.add('mine');
+
+    this.appendChild(img);
 }
 
 function revealNumber() {
@@ -135,7 +192,7 @@ function populateGrid(totalMines) {
 
     while(minesPlaced < totalMines) {
         [mineRow,mineCol] = getRandomGrid();
-        if (Math.abs(thisRow - mineRow) >= 2 && Math.abs(thisCol - mineCol) >= 2 && gridData[mineRow][mineCol] !== 9) {
+        if (!(Math.abs(thisRow - mineRow) < 2 && Math.abs(thisCol - mineCol) < 2) && gridData[mineRow][mineCol] !== 9) {
             gridData[mineRow][mineCol] = 9;
             minesPlaced++;
         }
@@ -164,8 +221,27 @@ function populateGrid(totalMines) {
             if (gridData[i][j] !== 9) {
                 gridData[i][j] = sum;
             }
+               
         }
     }
+}
+
+function startTimer() {
+    timer = setInterval(() => {
+        time ++;
+        let minutes = Math.floor(time/60);
+        let seconds = time%60;
+
+        if (seconds.toString().length === 1) {
+            seconds = `0${seconds}`;
+        } 
+
+        if (minutes.toString().length === 1) {
+            minutes = `0${minutes}`;
+        }
+
+        timerText.innerHTML = `${minutes}:${seconds}`;
+    },1000)
 }
 
 function resetBoard(rows,cols,totalMines) {
@@ -175,6 +251,8 @@ function resetBoard(rows,cols,totalMines) {
     gridData = [];
     gridRows = rows;
     gridCols = cols;
+
+    possibleScore = rows*cols;
 
     gameBoard.textContent = '';
     gameBoard.style['grid-template-rows'] = `repeat(${rows},20px`;
@@ -250,13 +328,33 @@ function resetBoard(rows,cols,totalMines) {
 
 const gameBoard = document.querySelector('#gameBoard');
 const gameOverlay = document.querySelector('#gameOverlay');
+const timerText = document.querySelector('#timer');
+const yes = gameOverlay.querySelector('#yes');
+const no = gameOverlay.querySelector('#no');
+const cont = gameOverlay.querySelector('#continue');
+const report = gameOverlay.querySelector('#gameReport');
+const text = gameOverlay.querySelector('#headerText');
+const playButtons = gameOverlay.querySelector('#playButtons');
+const usernameInput = gameOverlay.querySelector('#username');
+
 let goodSquares;
 let gridRows;
 let gridCols;
 let gridData;
+let possibleScore;
+let timer;
+let time;
+let gameScore;
+let username;
 
 // const rows = 10;
 // const cols = 10;
 // const totalMines = 20;
 
 resetBoard(10,10,15);
+difficultyScreen();
+
+document.querySelector('#easyWin').addEventListener('click',() => {
+    revealAll();
+    winSequence();
+});

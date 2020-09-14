@@ -56,11 +56,11 @@ body {
 }
 
 #gameAside {
-    background: red;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 20px;
+    height: 200px;
 }
 
 #cursorOptions {
@@ -111,14 +111,13 @@ body {
     font-size: 12px;
 }
 
-.mine {
-    background: red;
+.mineSqr {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.flag {
+.flag, .mine {
     height: 95%;
 }
 
