@@ -43,9 +43,16 @@ body {
     width: 100%;
     background: #808080de;
     z-index: 1;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#overlayWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 180px;
 }
 
 #gameBoard {
@@ -126,10 +133,15 @@ body {
     justify-content: center;
 }
 
-#gameOverlay h2 {
+#gameOverlay p {
     text-align: center;
     font-family: sans-serif;
     font-weight: normal;
+    font-size: 24px;
+    border-radius: 10px;
+    margin: 0;
+    padding: 5px;
+    background: white;
 }
 
 #gameReport {
@@ -154,4 +166,16 @@ body {
 
 #scoreboard {
     padding-left: 15px;
+}
+
+#difficultyButtons {
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#playButtons {
+    width: 100px;
+    display: none;
+    justify-content: space-between;
 }
