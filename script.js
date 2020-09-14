@@ -165,34 +165,44 @@ function addMine() {
 
 function revealNumber() {
     const gridFrames = [
+        {width: '100%',height: '100%'},
         {width: '0',height: '0'}
     ]
+    
+    const gridNum = gridData[this.dataset.row][this.dataset.col];
+    this.parentElement.classList.remove('hidden');  
 
-    this.animate(gridFrames,1000);
+    if (gridNum === 9) {
+        // loseSequence.bind(this.parentElement)();
+    } else if (gridNum === 0) {
+        goodSquares--;
+        clearZeros.bind(this)();
+    } else {
+        const pTag = this.parentElement.querySelector('p');
+        pTag.innerText = `${gridNum}`;
+        goodSquares--;
+    }
 
-    Promise.all(gameOverlay.getAnimations().map((animation) => {
+    this.animate(gridFrames,250);
+
+    Promise.all(this.getAnimations().map((animation) => {
         return animation.finished;    
     })).then(() => {
         this.style.display = 'none';
-        this.parentElement.classList.remove('hidden');
-
-        const gridNum = gridData[this.dataset.row][this.dataset.col];
 
         if (gridNum === 9) {
             loseSequence.bind(this.parentElement)();
         } else if (gridNum === 0) {
-            goodSquares--;
-            clearZeros.bind(this)();
-        } else {
-            const pTag = this.parentElement.querySelector('p');
-            pTag.innerText = `${gridNum}`;
-            goodSquares--;
+            // goodSquares--;
+            // clearZeros.bind(this)();
         }
-
+    
         if (goodSquares === 0) {
             winSequence();
         }
     })
+
+    
 }
 
 function getRandomGrid() {
