@@ -183,15 +183,38 @@ function addMine() {
 
 function revealNumber() {
     const gridFrames = [
-        {width: '100%',height: '100%', transform: 'rotate(0)'},
-        {width: '120%', height: '120%',background: '#7986AC'},
-        {width: '0',height: '0',transform: 'rotate(360deg)',background: 'none'}
+        [
+            {width: '100%',height: '100%'},
+            {width: '400%', height: '400%',background: '#ff0000'},
+            {width: '400%', height: '400%',background: '#ff0000'},
+        ],
+        [
+            {width: '100%',height: '100%', transform: 'rotate(0)'},
+            {width: '120%', height: '120%',background: '#7986AC'},
+            {width: '0',height: '0',transform: 'rotate(1040deg)',background: 'none'}
+        ],
+        [
+            {left: '0', top: '0', transform: 'rotate(0)', width: '100%', height: '100%'},
+            {left: '-20px', top: '-20px', transform: 'rotate(360deg)', width: '0', height: '0'}
+        ],
+        [
+            {left: '0', top: '0', transform: 'rotate(0)', width: '100%', height: '100%'},
+            {left: '20px', top: '20px', transform: 'rotate(360deg)', width: '0', height: '0'}
+        ],
+        [
+            {width: '100%',height: '100%',},
+            {width: '120%', height: '120%',background: '#7986AC'},
+            {width: '0',height: '0',background: 'none'}
+        ]
     ]
-    
+
+    let randAnim = Math.round(Math.random()*(gridFrames.length-1));
+
     const gridNum = gridData[this.dataset.row][this.dataset.col];
     this.parentElement.classList.remove('hidden');  
 
     if (gridNum === 9) {
+        randAnim = 0;
         // loseSequence.bind(this.parentElement)();
     } else if (gridNum === 0) {
         goodSquares--;
@@ -202,7 +225,7 @@ function revealNumber() {
         goodSquares--;
     }
 
-    this.animate(gridFrames,500);
+    this.animate(gridFrames[randAnim],750);
 
     Promise.all(this.getAnimations().map((animation) => {
         return animation.finished;    
