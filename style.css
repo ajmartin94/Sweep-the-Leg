@@ -1,5 +1,7 @@
+/* http://paletton.com/#uid=73l0u0kllllaFw0g0qFqFg0w0aF */
+
 body {
-    background: teal;
+    background: #246068;
     display: flex;
     justify-content: center;
     height: 90vh;
@@ -13,7 +15,7 @@ body {
 }
 
 #centerContent {
-    background: beige;
+    background: #AA8639;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -41,7 +43,7 @@ body {
     position: absolute;
     height: 100%;
     width: 100%;
-    background: #808080de;
+    background: #805e15;
     z-index: 1;
     justify-content: center;
     align-items: center;
@@ -56,7 +58,6 @@ body {
 }
 
 #gameBoard {
-    background: white;
     display: grid;
     grid-gap: 3px;
     margin: 20px;
@@ -87,25 +88,24 @@ body {
     line-height: 50%;
 }
 
-.mineGrid {
+.mineGrid,.gridCover {
     width: 100%;
     height: 100%;
-    border: 1px solid black;
+    border: .5px solid black;
+    border-radius: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.mineGrid {
     background: white;
     position: relative;
 }
 
 .gridCover {
-    background: grey;
+    background: #50608F;
     position: absolute;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .hidden:hover {
@@ -141,7 +141,7 @@ body {
     border-radius: 10px;
     margin: 0;
     padding: 5px;
-    background: white;
+    background: #FFE4AA;
 }
 
 #gameReport {
@@ -184,14 +184,14 @@ body {
     font-family: sans-serif;
     border-radius: .15em;
     font-weight: 400;
-    background: lightblue;
+    background: #7986AC;
     box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
     cursor: pointer;
     padding: .40em;
 }
 
 .button:hover {
-    background: darkblue;
+    background: #162656;
     box-shadow:inset 0 -0.6em 0 -0.35em #ffffffab;
     color: white;
 }

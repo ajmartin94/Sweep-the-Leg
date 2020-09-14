@@ -223,7 +223,6 @@ function startTimer() {
 
     timer = setInterval(() => {
         time ++;
-        console.log(time);
         let minutes = Math.floor(time/60);
         let seconds = time%60;
 
@@ -256,6 +255,11 @@ function resetBoard(rows,cols,totalMines) {
     gameBoard.textContent = '';
     gameBoard.style['grid-template-rows'] = `repeat(${rows},20px`;
     gameBoard.style['grid-template-columns'] = `repeat(${cols},20px`;
+
+    gameBoard.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        return false;
+    })
 
     for (let i = 0; i < rows; i++) {
         let temp = [];
