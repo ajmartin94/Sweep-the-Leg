@@ -78,6 +78,7 @@ function loseSequence() {
 
 function revealOverlay() {
     gameOverlay.style.display = 'flex';
+    gameOverlay.style['background-image'] = "url('images/fireworks.gif')";
 
     const overlayFrames = [
         {background: '#805e1500'},
@@ -106,6 +107,7 @@ function revealAll() {
 
 function winSequence() {
     stopTimer();
+    revealOverlay();
 
     gameScore += possibleScore - time;
     currentScore.innerText = `${gameScore}`;
@@ -124,6 +126,7 @@ function winSequence() {
     cont.addEventListener('click',() => {
         playButtons.style.display = 'none';
         report.style.display = 'none';
+        gameOverlay.style['background-image'] = "none";
         difficultyScreen();
     })
 }
@@ -192,9 +195,6 @@ function revealNumber() {
 
         if (gridNum === 9) {
             loseSequence.bind(this.parentElement)();
-        } else if (gridNum === 0) {
-            // goodSquares--;
-            // clearZeros.bind(this)();
         }
     
         if (goodSquares === 0) {
