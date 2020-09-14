@@ -36,7 +36,7 @@ function difficultyScreen() {
 
 function loseSequence() {
     stopTimer();
-    revealOverlay();
+    revealOverlay('lose');
 
     if (gameScore > 0) {
         scoreboardScores.push({username: username,score: gameScore});
@@ -66,6 +66,7 @@ function loseSequence() {
         yes.addEventListener('click',()=> {
             playButtons.style.display = 'none';
             report.style.display = 'none';
+            gameOverlay.style['background-image'] = "none";
             difficultyScreen();
         });
 
@@ -76,17 +77,25 @@ function loseSequence() {
     })
 }
 
-function revealOverlay() {
+function revealOverlay(condition) {
     gameOverlay.style.display = 'flex';
-    gameOverlay.style['background-image'] = "url('images/fireworks.gif')";
+
+    if (condition === 'lose') {
+        gameOverlay.style['background-image'] = "url('images/skull.png')";
+        gameOverlay.style['background-size'] = 'auto 60%';
+    } else {
+        gameOverlay.style['background-image'] = "url('images/fireworks.gif')";
+        gameOverlay.style['background-size'] = 'auto 100%';
+    }
 
     const overlayFrames = [
-        {'background': '#805e1500'},
-        {'background': '#805e15dc'}
+        {opacity: '0'},
+        {opactiy: '1'}
     ]
 
-    gameOverlay.animate(overlayFrames,500);
+    gameOverlay.animate(overlayFrames,4000);
 }
+
 function revealAll() {
     const gameGrid = gameBoard.querySelectorAll('.gridCover');
 
@@ -107,27 +116,31 @@ function revealAll() {
 
 function winSequence() {
     stopTimer();
-    revealOverlay();
+    
+    revealOverlay('win');
 
     gameScore += possibleScore - time;
     currentScore.innerText = `${gameScore}`;
 
-    gameOverlay.style.display = 'flex';
+    Promise.all(gameOverlay.getAnimations().map((animation) => {
+        return animation.finished;    
+    })).then(() => {
 
-    usernameInput.style.display = 'none';
-    report.style.display = 'block';
-    playButtons.style.display = 'flex';
-    cont.style.display = 'block';
-    yes.style.display = 'none';
-    no.style.display = 'none';
+        usernameInput.style.display = 'none';
+        report.style.display = 'block';
+        playButtons.style.display = 'flex';
+        cont.style.display = 'block';
+        yes.style.display = 'none';
+        no.style.display = 'none';
 
-    text.innerText = 'You win! \nKeep playing to get more points.';
+        text.innerText = 'You win! \nKeep playing to get more points.';
 
-    cont.addEventListener('click',() => {
-        playButtons.style.display = 'none';
-        report.style.display = 'none';
-        gameOverlay.style['background-image'] = "none";
-        difficultyScreen();
+        cont.addEventListener('click',() => {
+            playButtons.style.display = 'none';
+            report.style.display = 'none';
+            gameOverlay.style['background-image'] = "none";
+            difficultyScreen();
+        })
     })
 }
 
@@ -168,8 +181,9 @@ function addMine() {
 
 function revealNumber() {
     const gridFrames = [
-        {width: '100%',height: '100%'},
-        {width: '0',height: '0'}
+        {width: '100%',height: '100%', transform: 'rotate(0)'},
+        {width: '120%', height: '120%',background: '#7986AC'},
+        {width: '0',height: '0',transform: 'rotate(360deg)'}
     ]
     
     const gridNum = gridData[this.dataset.row][this.dataset.col];
@@ -186,7 +200,7 @@ function revealNumber() {
         goodSquares--;
     }
 
-    this.animate(gridFrames,250);
+    this.animate(gridFrames,500);
 
     Promise.all(this.getAnimations().map((animation) => {
         return animation.finished;    

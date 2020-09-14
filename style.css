@@ -46,7 +46,7 @@ body {
     height: 100%;
     width: 100%;
     background-size: auto 100%;
-    /* background-repeat: no-repeat; */
+    background-repeat: no-repeat;
     background-position: center;
     background-color: #805e15dc;
     z-index: 1;
@@ -212,4 +212,8 @@ body {
 #gameHeader p {
     font-family: sans-serif;
     font-size: 28px;
+}
+
+#skull {
+    
 }
