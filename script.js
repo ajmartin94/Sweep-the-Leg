@@ -12,6 +12,7 @@ function difficultyScreen() {
             diffButtons.style.display = 'none';
             diff.style.display = 'none';
             play.style.display = 'none';
+            usernameInput.style.display = 'none';
 
             username = usernameInput.value;
             startTimer();
@@ -35,9 +36,11 @@ function difficultyScreen() {
 
 function loseSequence() {
     stopTimer();
+    revealOverlay();
 
     if (gameScore > 0) {
         scoreboardScores.push({username: username,score: gameScore});
+        currentScore.innerText = gameScore;
         populateScoreboard();
     }
 
@@ -46,29 +49,43 @@ function loseSequence() {
     addMine.bind(this)();
     revealAll();
 
-    gameOverlay.style.display = 'flex';
+    Promise.all(gameOverlay.getAnimations().map((animation) => {
+        return animation.finished;    
+    })).then(() => {
+        gameOverlay.style.display = 'flex';
 
-    usernameInput.style.display = 'none';
-    report.style.display = 'block';
-    playButtons.style.display = 'flex';
-    cont.style.display = 'none';
-    yes.style.display = 'block';
-    no.style.display = 'block';
+        usernameInput.style.display = 'none';
+        report.style.display = 'block';
+        playButtons.style.display = 'flex';
+        cont.style.display = 'none';
+        yes.style.display = 'block';
+        no.style.display = 'block';
 
-    text.innerText = 'You lose. Play again?'
+        text.innerText = 'You lose. Play again?'
 
-    yes.addEventListener('click',()=> {
-        playButtons.style.display = 'none';
-        report.style.display = 'none';
-        difficultyScreen();
-    });
+        yes.addEventListener('click',()=> {
+            playButtons.style.display = 'none';
+            report.style.display = 'none';
+            difficultyScreen();
+        });
 
-    no.addEventListener('click',() => {
-        text.innerText = 'Cmon now. Play again. Do it.'
-        no.style.display = 'none';
+        no.addEventListener('click',() => {
+            text.innerText = 'Cmon now. Play again. Do it.'
+            no.style.display = 'none';
+        })
     })
 }
 
+function revealOverlay() {
+    gameOverlay.style.display = 'flex';
+
+    const overlayFrames = [
+        {background: '#805e1500'},
+        {background: '#805e15dc'}
+    ]
+
+    gameOverlay.animate(overlayFrames,4000);
+}
 function revealAll() {
     const gameGrid = gameBoard.querySelectorAll('.gridCover');
 
@@ -91,6 +108,7 @@ function winSequence() {
     stopTimer();
 
     gameScore += possibleScore - time;
+    currentScore.innerText = `${gameScore}`;
 
     gameOverlay.style.display = 'flex';
 
@@ -101,7 +119,7 @@ function winSequence() {
     yes.style.display = 'none';
     no.style.display = 'none';
 
-    text.innerText = 'You win! Keep playing to get more points.';
+    text.innerText = 'You win! \nKeep playing to get more points.';
 
     cont.addEventListener('click',() => {
         playButtons.style.display = 'none';
@@ -139,32 +157,42 @@ function addMine() {
     this.classList.add('mineSqr');
 
     const img = document.createElement('img');
-    img.setAttribute('src','images/mine.jpg');
+    img.setAttribute('src','images/mine.png');
     img.classList.add('mine');
 
     this.appendChild(img);
 }
 
 function revealNumber() {
-    this.style.display = 'none';
-    this.parentElement.classList.remove('hidden');
+    const gridFrames = [
+        {width: '0',height: '0'}
+    ]
 
-    const gridNum = gridData[this.dataset.row][this.dataset.col];
+    this.animate(gridFrames,1000);
 
-    if (gridNum === 9) {
-        loseSequence.bind(this.parentElement)();
-    } else if (gridNum === 0) {
-        goodSquares--;
-        clearZeros.bind(this)();
-    } else {
-        const pTag = this.parentElement.querySelector('p');
-        pTag.innerText = `${gridNum}`;
-        goodSquares--;
-    }
+    Promise.all(gameOverlay.getAnimations().map((animation) => {
+        return animation.finished;    
+    })).then(() => {
+        this.style.display = 'none';
+        this.parentElement.classList.remove('hidden');
 
-    if (goodSquares === 0) {
-        winSequence();
-    }
+        const gridNum = gridData[this.dataset.row][this.dataset.col];
+
+        if (gridNum === 9) {
+            loseSequence.bind(this.parentElement)();
+        } else if (gridNum === 0) {
+            goodSquares--;
+            clearZeros.bind(this)();
+        } else {
+            const pTag = this.parentElement.querySelector('p');
+            pTag.innerText = `${gridNum}`;
+            goodSquares--;
+        }
+
+        if (goodSquares === 0) {
+            winSequence();
+        }
+    })
 }
 
 function getRandomGrid() {
@@ -332,12 +360,17 @@ function resetBoard(rows,cols,totalMines) {
 function populateScoreboard() {
     let sortedScores = scoreboardScores.sort((a,b) => b.score - a.score);
     scoreboard.innerHTML = '';
+    let end = 10;
 
-    sortedScores.forEach(el => {
+    if (sortedScores.length < 10) {
+        end = sortedScores.length
+    }
+
+    for (let i = 0; i < end; i++) {
         const scoreP = document.createElement('li');
-        scoreP.innerText = `${el.username} : ${el.score}`;
+        scoreP.innerText = `${sortedScores[i].username} : ${sortedScores[i].score}`;
         scoreboard.appendChild(scoreP);
-    })
+    }
     
     localStorage.setItem('scores',JSON.stringify(scoreboardScores));
 }
@@ -355,6 +388,7 @@ const usernameInput = gameOverlay.querySelector('#username');
 const diffButtons = gameOverlay.querySelector('#difficultyButtons');
 const diff = gameOverlay.querySelector('#difficulty');
 const scoreboard = document.querySelector('#scoreboard');
+const currentScore = document.querySelector('#currentScore');
 
 
 let goodSquares;
@@ -364,7 +398,7 @@ let gridData;
 let possibleScore;
 let timer;
 let time;
-let gameScore;
+let gameScore = 0;
 let username;
 
 // const rows = 10;

@@ -4,7 +4,7 @@ body {
     background: #246068;
     display: flex;
     justify-content: center;
-    height: 90vh;
+    height: 100vh;
 }
 
 #wrapper {
@@ -25,7 +25,9 @@ body {
 }
 
 #gameHeader {
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #gameWrapper {
@@ -43,7 +45,7 @@ body {
     position: absolute;
     height: 100%;
     width: 100%;
-    background: #805e15;
+    background: #805e15dc;
     z-index: 1;
     justify-content: center;
     align-items: center;
@@ -106,6 +108,7 @@ body {
 .gridCover {
     background: #50608F;
     position: absolute;
+    cursor: pointer;
 }
 
 .hidden:hover {
@@ -158,6 +161,7 @@ body {
 
 #gameAside p {
     text-align: center;
+    font-size: 18px;
 }
 
 #scoreboardDiv {
@@ -190,8 +194,19 @@ body {
     padding: .40em;
 }
 
-.button:hover {
+/* .button:hover {
     background: #162656;
     box-shadow:inset 0 -0.6em 0 -0.35em #ffffffab;
     color: white;
+} */
+
+#gameHeader img {
+    height: 1.5em;
+    background: none;
+    margin: 0 20px;
+}
+
+#gameHeader p {
+    font-family: sans-serif;
+    font-size: 28px;
 }

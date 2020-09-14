@@ -10,7 +10,9 @@
     <div id='wrapper'>
         <div id='centerContent'>
             <div id='gameHeader'>
-                <h1>Minesweeper</h1>
+                <img src='images/mine.png'>
+                <p>Welcome to Minesweeper</p>
+                <img src='images/mine.png'>
             </div>
             <div id='gameWrapper'> 
                 <div id='gameBoardWrapper'>
@@ -50,19 +52,34 @@
                     <!-- <div id='cursorOptions'>
 
                     </div> -->
-                    <div id='timerDiv'>
+                    <!-- <div id='timerDiv'>
                         <p id='timerTitle'>Game Timer</p>
                         <p id='timer'></p>
+                    </div> -->
+                    <div id='currentScoreDiv'>
+                        <p>Current Score</p>
+                        <p id='currentScore'>0</p>
                     </div>
                     <div id='scoreboardDiv'>
-                        <p>Scoreboard</p>
+                        <p>High Scores</p>
                         <ol id='scoreboard'>
 
                         </ol>
                     </div>
                 </div>
             </div>
-            <div id='instructions'></div>
+            <div id='timerDiv'>
+                <p id='timerTitle'>Game Timer - <span id='timer'></span></p>
+            </div>
+            <div id='instructions'>
+                <p>Instructions:</p>
+                <ul>
+                    <li>Navigate the board by clicking on the grid tiles, but watch out for mines!</li>
+                    <li>Mark possible mine locations with a right click.</li>
+                    <li>Score points by surviving levels.</li>
+                </ul>
+                <p>Good luck!</p>
+            </div>
             <button id='easyWin' class='button'>Easy Win</button>
         </div>
     </div>
