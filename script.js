@@ -37,10 +37,8 @@ function loseSequence() {
     stopTimer();
 
     if (gameScore > 0) {
-        // const scoreboard = document.querySelector('#scoreboard');
-        // const scoreP = document.createElement('p');
-        // scoreP.innerText = `${username} : ${gameScore}`;
-        // scoreboard.appendChild(scoreP);
+        scoreboardScores.push({username: username,score: gameScore});
+        populateScoreboard();
     }
 
     gameScore = 0;
@@ -337,7 +335,7 @@ function populateScoreboard() {
         scoreboard.appendChild(scoreP);
     })
     
-    sessionStorage.setItem('scores',scoreboardScores);
+    localStorage.setItem('scores',JSON.stringify(scoreboardScores));
 }
 
 const gameBoard = document.querySelector('#gameBoard');
@@ -377,27 +375,29 @@ document.querySelector('#easyWin').addEventListener('click',() => {
     winSequence();
 });
 
-scoreboardScores = [
-    {
-        username: 'bro',
-        score: 100
-    },
-    {
-        username: 'br2o',
-        score: 120
-    },
-    {
-        username: 'br2o',
-        score: 800
-    },
-    {
-        username: 'b3ro',
-        score: 720
-    },
-    {
-        username: 'b3ro',
-        score: 55
-    },
-];
+// scoreboardScores = [
+//     {
+//         username: 'theguy',
+//         score: 10000
+//     },
+//     {
+//         username: 'l33t',
+//         score: 1000
+//     },
+//     {
+//         username: 'tough',
+//         score: 500
+//     },
+//     {
+//         username: 'simple',
+//         score: 250
+//     },
+//     {
+//         username: 'cmon',
+//         score: 50
+//     },
+// ];
+
+let scoreboardScores = JSON.parse(localStorage.getItem('scores'));
 
 populateScoreboard();
