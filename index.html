@@ -59,16 +59,23 @@
                         <p id='timerTitle'>Game Timer</p>
                         <p id='timer'></p>
                     </div> -->
-                    <div id='currentScoreDiv'>
-                        <p>Current Score</p>
-                        <p id='currentScore'>0</p>
-                    </div>
-                    <div id='scoreboardDiv'>
-                        <p>High Scores</p>
-                        <ol id='scoreboard'>
+                    <div id='scoreboardWrapper'>
+                        <div id='currentScoreDiv'>
+                            <p>Current Score</p>
+                            <p id='currentScore'>0</p>
+                        </div>
+                        <div id='scoreboardDiv'>
+                            <p>High Scores</p>
+                            <ol id='scoreboard'>
 
-                        </ol>
-                        <button id='resetScores' class='button'>Reset Scoreboard</button>
+                            </ol>
+                            <button id='resetScores' class='button'>Reset Scoreboard</button>
+                        </div>
+                    </div>
+                    <div id='scoreboardSlide'>
+                        <img class='triangle' src='images/triangle.png' />
+                        <p class='slideText'>Scoreboard</p>
+                        <img class='triangle' src='images/triangle.png' />
                     </div>
                 </div>
             </div>
@@ -81,6 +88,7 @@
                 </ul>
                 <p>Good luck!</p>
             </div>
+            <div id='instructionsSlide'></div>
             <button id='easyWin' class='button'>Easy Win</button>
         </div>
     </div>
