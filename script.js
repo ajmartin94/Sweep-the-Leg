@@ -618,6 +618,9 @@ resetBoard(10,10,15);
 difficultyScreen();
 
 let scoreboardScores = JSON.parse(localStorage.getItem('scores'));
+if (!scoreboardScores) {
+    resetScoreboard();
+}
 
 populateScoreboard();
 
