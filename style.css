@@ -202,10 +202,6 @@ body {
     margin: 10px;
 }
 
-#scoreboard {
-    padding-left: 15px;
-}
-
 #difficultyButtons {
     max-width: 250px;
     width: 95%;
@@ -258,12 +254,42 @@ body {
     text-align: right;
 }
 
-#instructions * {
-    color: white;
+#currentScoreDiv p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 24px;
+    color: white
 }
 
-#gameAside * {
-    color: white;
+#scoreboardDiv p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 24px;
+    color: white
+}
+
+#scoreboard li {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    color: black;
+}
+
+#highScoreDiv {
+    background: #C95F07;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+
+#scoreboard {
+    padding: 0;
 }
 
 #scoreboardSlide {
@@ -271,7 +297,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     width: 30px;
-    height: 200px;
+    height: 220px;
     align-items: center;
     padding: 10px;
     border: 1px solid #00000000;
@@ -279,6 +305,9 @@ body {
 
 #scoreboardSlide .slideText {
     transform: rotate(-90deg);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
 }
 
 .slideText {
@@ -289,7 +318,6 @@ body {
 
 #scoreboardSlide:hover, #instructionsSlide:hover{
     border: 1px solid white;
-    color: black;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -310,6 +338,13 @@ body {
     height: 30px;
     padding: 10px;
     border: 1px solid #00000000;
+    margin-top: 5px;
+}
+
+#instructionsSlide p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
 }
 
 #instructionsSlide .triangle {
