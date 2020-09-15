@@ -32,8 +32,6 @@ function difficultyScreen() {
         newBoard(20,40,120);
         play.style.display = 'block';
     })
-
-
 }
 
 function loseSequence() {
@@ -241,8 +239,6 @@ function revealNumber() {
             winSequence();
         }
     })
-
-    
 }
 
 function getRandomGrid() {
@@ -263,7 +259,6 @@ function populateGrid(totalMines) {
             gridData[mineRow][mineCol] = 9;
             minesPlaced++;
         }
-       
     }
     
     for (let i = 0; i < gridRows; i++) {
