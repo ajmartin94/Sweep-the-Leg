@@ -192,7 +192,7 @@ function revealNumber() {
         ],
         [
             {width: '100%',height: '100%', transform: 'rotate(0)'},
-            {width: '120%', height: '120%',background: '#7986AC'},
+            {width: '120%', height: '120%',background: '#C95F07'},
             {width: '0',height: '0',transform: 'rotate(1040deg)',background: 'none'}
         ],
         [
@@ -205,7 +205,7 @@ function revealNumber() {
         ],
         [
             {width: '100%',height: '100%',},
-            {width: '120%', height: '120%',background: '#7986AC'},
+            {width: '120%', height: '120%',background: '#C95F07'},
             {width: '0',height: '0',background: 'none'}
         ]
     ]
@@ -331,9 +331,11 @@ function resetBoard(rows,cols,totalMines) {
 
     possibleScore = rows*cols;
 
+    const gridWidth = 500/rows;
+
     gameBoard.textContent = '';
-    gameBoard.style['grid-template-rows'] = `repeat(${rows},20px`;
-    gameBoard.style['grid-template-columns'] = `repeat(${cols},20px`;
+    gameBoard.style['grid-template-rows'] = `repeat(${rows},${gridWidth}px`;
+    gameBoard.style['grid-template-columns'] = `repeat(${cols},${gridWidth}px`;
 
     gameBoard.addEventListener('contextmenu', (e) => {
         e.preventDefault();

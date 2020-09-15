@@ -133,7 +133,7 @@ body {
 .mineGrid p {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 12px;
+    font-size: 100%;
 }
 
 .mineSqr {
@@ -181,14 +181,18 @@ body {
 }
 
 #scoreboardDiv {
-    border-top: 1px solid white;
     display: none;
-    margin-left: 10px;
+    margin: 10px;
+}
+
+#line {
+    width: 85%;
+    border-top: 1px solid white;
 }
 
 #currentScoreDiv {
     display: none;
-    margin-left: 10px;
+    margin: 10px;
 }
 
 #scoreboard {
@@ -238,12 +242,12 @@ body {
 }
 
 #title {
-    font-size: 28px;
+    font-size: 36px;
     text-align: left;
 }
 
 #timer {
-    font-size: 18px;
+    font-size: 26px;
     text-align: right;
 }
 
