@@ -41,3 +41,11 @@ Palletton.com for color pallette
 - *Randomly assigned animations for grid square removal*
 - *Pull out asides for both a scoreboard and the game instructions*
 - *Winning and losing animations*
+
+## Project Execution
+### Interesting Challenges
+- Getting the animations working
+- Designing the algorithm for recursively clearing zeroes
+- Tuning the slide animations
+- Destroying my git repo accidentally and learning to rebuild it ;D
+- Designing a decent UX/UI
