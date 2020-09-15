@@ -25,13 +25,6 @@ body {
     height: 90vh;
 }
 
-/* #wrapper {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
 #centerContent {
     background: #7B0000;
     padding: 10px;
@@ -232,6 +225,7 @@ body {
 
 #gameHeader p {
     font-family: 'Roboto', sans-serif;
+    font-weight: 800;
     color: white;
     margin: 0;
 }
