@@ -426,6 +426,37 @@ function populateScoreboard() {
     localStorage.setItem('scores',JSON.stringify(scoreboardScores));
 }
 
+function resetScoreboard() {
+    localStorage.clear();
+
+    scoreboardScores = [
+        {
+            username: 'theguy',
+            score: 10000
+        },
+        {
+            username: 'l33t',
+            score: 1000
+        },
+        {
+            username: 'tough',
+            score: 500
+        },
+        {
+            username: 'simple',
+            score: 250
+        },
+        {
+            username: 'cmon',
+            score: 50
+        },
+    ];
+
+    localStorage.setItem('scores',JSON.stringify(scoreboardScores));
+
+    populateScoreboard();
+}
+
 const gameBoard = document.querySelector('#gameBoard');
 const gameOverlay = document.querySelector('#gameOverlay');
 const timerText = document.querySelector('#timer');
@@ -440,6 +471,7 @@ const diffButtons = gameOverlay.querySelector('#difficultyButtons');
 const diff = gameOverlay.querySelector('#difficulty');
 const scoreboard = document.querySelector('#scoreboard');
 const currentScore = document.querySelector('#currentScore');
+const resetScores = document.querySelector("#resetScores");
 
 
 let goodSquares;
@@ -463,29 +495,6 @@ document.querySelector('#easyWin').addEventListener('click',() => {
     revealAll();
     winSequence();
 });
-
-// scoreboardScores = [
-//     {
-//         username: 'theguy',
-//         score: 10000
-//     },
-//     {
-//         username: 'l33t',
-//         score: 1000
-//     },
-//     {
-//         username: 'tough',
-//         score: 500
-//     },
-//     {
-//         username: 'simple',
-//         score: 250
-//     },
-//     {
-//         username: 'cmon',
-//         score: 50
-//     },
-// ];
 
 let scoreboardScores = JSON.parse(localStorage.getItem('scores'));
 

@@ -27,8 +27,9 @@ body {
 
 #gameHeader {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    width: 100%;
 }
 
 #gameWrapper {
@@ -89,10 +90,10 @@ body {
     background: purple; */
 }
 
-#gameHeader h1 {
+/* #gameHeader h1 {
     font-family: sans-serif;
     line-height: 50%;
-}
+} */
 
 .mineGrid,.gridCover {
     width: 100%;
@@ -213,6 +214,10 @@ body {
 #gameHeader p {
     font-family: sans-serif;
     font-size: 28px;
+    text-align: left;
+    color: white;
+    width: 100%;
+    border-bottom: 2px solid white;
 }
 
 #timerDiv p{
