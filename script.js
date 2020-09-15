@@ -363,6 +363,9 @@ function resetBoard(rows,cols,totalMines) {
             gridRevealedDiv.style['grid-row'] = `${i}`;
             gridRevealedDiv.classList.add('mineGrid');
             const pTag = document.createElement('p');
+            if (rows < 20) {
+                pTag.classList.add('bigText');
+            }
             gridRevealedDiv.appendChild(pTag);
 
             gameBoard.appendChild(gridRevealedDiv);
