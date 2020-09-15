@@ -528,7 +528,7 @@ function toggleScoreboard() {
     let show;
 
     if (scoreboardWrapper.offsetWidth === 0) {
-        scoreboardDiv.style.display = 'block';
+        scoreboardDiv.style.display = 'flex';
         currentScoreDiv.style.display = 'block';
         xMove = scoreboardWrapper.offsetWidth;
         rotationEnd = '270deg';
@@ -537,7 +537,7 @@ function toggleScoreboard() {
         scoreboardDiv.style.display = 'none';
         currentScoreDiv.style.display = 'none';
     } else {
-        scoreboardDiv.style.display = 'block';
+        scoreboardDiv.style.display = 'flex';
         currentScoreDiv.style.display = 'block';
         xMove = -1*scoreboardWrapper.offsetWidth;
         rotationEnd = '90deg';
@@ -575,7 +575,7 @@ function toggleScoreboard() {
         return animation.finished;    
     })).then(() => {
         if (show) {
-            scoreboardDiv.style.display = 'block';
+            scoreboardDiv.style.display = 'flex';
             currentScoreDiv.style.display = 'block';
         }
     })
