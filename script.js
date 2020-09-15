@@ -530,6 +530,7 @@ function toggleScoreboard() {
         show = true;
         scoreboardDiv.style.display = 'none';
         currentScoreDiv.style.display = 'none';
+        scoreboardLine.style.display = 'none';
     } else {
         scoreboardDiv.style.display = 'flex';
         currentScoreDiv.style.display = 'block';
@@ -539,6 +540,7 @@ function toggleScoreboard() {
         show = false; 
         scoreboardDiv.style.display = 'none';
         currentScoreDiv.style.display = 'none';
+        scoreboardLine.style.display = 'none';
     }
 
     if (xMove < 0) {
@@ -571,6 +573,7 @@ function toggleScoreboard() {
         if (show) {
             scoreboardDiv.style.display = 'flex';
             currentScoreDiv.style.display = 'block';
+            scoreboardLine.style.display = 'block';
         }
     })
 }
@@ -602,6 +605,7 @@ const instructionTriangles = document.querySelectorAll('#instructionsSlide .tria
 const scoreboardTriangles = document.querySelectorAll('#scoreboardSlide .triangle');
 const scoreboardDiv = document.querySelector('#scoreboardDiv');
 const currentScoreDiv = document.querySelector('#currentScoreDiv');
+const scoreboardLine = document.querySelector('#line');
 
 
 let goodSquares;
