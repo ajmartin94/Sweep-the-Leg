@@ -217,7 +217,6 @@ function revealNumber() {
 
     if (gridNum === 9) {
         randAnim = 0;
-        // loseSequence.bind(this.parentElement)();
     } else if (gridNum === 0) {
         goodSquares--;
         clearZeros.bind(this)();
@@ -331,7 +330,7 @@ function resetBoard(rows,cols,totalMines) {
 
     possibleScore = rows*cols;
 
-    const gridWidth = 500/rows;
+    const gridWidth = 400/rows;
 
     gameBoard.textContent = '';
     gameBoard.style['grid-template-rows'] = `repeat(${rows},${gridWidth}px`;
@@ -622,11 +621,6 @@ let username;
 
 resetBoard(10,10,15);
 difficultyScreen();
-
-// document.querySelector('#easyWin').addEventListener('click',() => {
-//     revealAll();
-//     winSequence();
-// });
 
 let scoreboardScores = JSON.parse(localStorage.getItem('scores'));
 

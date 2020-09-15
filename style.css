@@ -278,7 +278,7 @@ body {
 }
 
 #highScoreDiv {
-    background: #C95F07;
+    background: white;
     padding: 5px;
     margin: 5px;
     border-radius: 5px;
@@ -287,7 +287,6 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-
 }
 
 #scoreboard {
@@ -355,4 +354,12 @@ body {
 
 #instructions {
     display: none;
+}
+
+#instructionsContainer {
+    background: white;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 2px solid black;
 }
