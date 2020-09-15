@@ -1,4 +1,5 @@
 /* http://paletton.com/#uid=73l0u0kllllaFw0g0qFqFg0w0aF */
+/* http://paletton.com/#uid=7000u0kuUpglmvHrjuaz-kHHTfu */
 
 body {
     background: #246068;
@@ -214,6 +215,6 @@ body {
     font-size: 28px;
 }
 
-#skull {
-
+#timerDiv p{
+ text-align: center;   
 }
