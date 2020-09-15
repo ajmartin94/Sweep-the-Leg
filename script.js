@@ -458,42 +458,40 @@ function resetScoreboard() {
 }
 
 function toggleInstructions() {
-    instructionsWrapper.style.width = `${gameWrapper.getBoundingClientRect().width}px`;
+    instructions.style.width = `${gameWrapper.getBoundingClientRect().width}px`;
     let yMove;
-    let yStart;
     let rotationEnd;
     let rotationStart;
     let show;
 
-    if (instructionsWrapper.offsetHeight === 0) {
-        instructionsWrapper.style.display = 'block';
-        yMove = instructionsWrapper.offsetHeight;
+    if (instructions.offsetHeight === 0) {
+        instructions.style.display = 'block';
+        yMove = instructions.offsetHeight;
         rotationEnd = '0deg';
         rotationStart = '180deg';
         show = true;
-        yStart = 0;
-        instructionsWrapper.style.display = 'none';
+        instructions.style.display = 'none';
     } else {
-        yMove = -1*instructionsWrapper.offsetHeight;
+        yMove = -1*instructions.offsetHeight;
         rotationEnd = '180deg';
         rotationStart = '0deg';
         show = false; 
-        yStart = -1*yMove;
+        instructions.style.display = 'none';
     }
 
-    containerFrames = [
-        {height: `${centerContent.offsetHeight}px`},
-        {height: `${centerContent.offsetHeight + yMove}px`}
-    ]
-
-    centerContent.animate(containerFrames,1000);
-
-    slideFrames = [
-        {transform: `translateY(${yStart}px)`},
-        {transform: `translateY(${yMove}px)`}
-    ]
-
-    instructionsSlide.animate(slideFrames,1000);
+    if (yMove < 0) {
+        instructionsFrames = [
+            {height: `${Math.abs(yMove)}px`},
+            {height: '0px'}
+        ]
+    } else {
+        instructionsFrames = [
+            {height: `0px`},
+            {height: `${yMove}px`}
+        ]
+    }
+    
+    instructionsWrapper.animate(instructionsFrames,500);
 
     triangleFrames = [
         {transform: `rotate(${rotationStart})`},
@@ -501,20 +499,21 @@ function toggleInstructions() {
     ]
 
     instructionTriangles.forEach(tri => {
-        tri.animate(triangleFrames,{duration:1000,fill:'forwards'});
+        tri.animate(triangleFrames,{duration:500,fill:'forwards'});
     })
 
-    Promise.all(instructionsSlide.getAnimations().map((animation) => {
+    
+    Promise.all(instructionsWrapper.getAnimations().map((animation) => {
         return animation.finished;    
     })).then(() => {
         if (show) {
-            instructionsWrapper.style.display = 'block';
+            instructions.style.display = 'block';
         } else {
-            instructionsWrapper.style.display = 'none';
+            instructions.style.display = 'none';
         }
-        
     })
 }
+
 
 const gameBoard = document.querySelector('#gameBoard');
 const gameOverlay = document.querySelector('#gameOverlay');
@@ -534,7 +533,8 @@ const resetScores = document.querySelector("#resetScores");
 const scoreboardSlide = document.querySelector('#scoredboardSlide');
 const instructionsSlide = document.querySelector('#instructionsSlide');
 const scoreboardWrapper = document.querySelector('#scoreboardWrapper');
-const instructionsWrapper = document.querySelector('#instructions');
+const instructions = document.querySelector('#instructions');
+const instructionsWrapper = document.querySelector('#instructionsWrapper')
 const gameWrapper = document.querySelector('#gameWrapper');
 const centerContent = document.querySelector('#centerContent');
 const instructionTriangles = document.querySelectorAll('#instructionsSlide .triangle');
@@ -550,10 +550,6 @@ let timer;
 let time;
 let gameScore = 0;
 let username;
-
-// const rows = 10;
-// const cols = 10;
-// const totalMines = 20;
 
 resetBoard(10,10,15);
 difficultyScreen();
