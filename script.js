@@ -514,6 +514,66 @@ function toggleInstructions() {
     })
 }
 
+function toggleScoreboard() {
+    let xMove;
+    let rotationEnd;
+    let rotationStart;
+    let show;
+
+    if (scoreboardWrapper.offsetWidth === 0) {
+        scoreboardDiv.style.display = 'block';
+        currentScoreDiv.style.display = 'block';
+        xMove = scoreboardWrapper.offsetWidth;
+        rotationEnd = '270deg';
+        rotationStart = '90deg';
+        show = true;
+        scoreboardDiv.style.display = 'none';
+        currentScoreDiv.style.display = 'none';
+    } else {
+        scoreboardDiv.style.display = 'block';
+        currentScoreDiv.style.display = 'block';
+        xMove = -1*scoreboardWrapper.offsetWidth;
+        rotationEnd = '90deg';
+        rotationStart = '270deg';
+        show = false; 
+        scoreboardDiv.style.display = 'none';
+        currentScoreDiv.style.display = 'none';
+    }
+
+    if (xMove < 0) {
+        scoreboardFrames = [
+            {width: `${Math.abs(xMove)}px`},
+            {width: '0px'}
+        ]
+    } else {
+        scoreboardFrames = [
+            {width: `0px`},
+            {width: `${xMove}px`}
+        ]
+    }
+    
+    scoreboardWrapper.animate(scoreboardFrames,500);
+
+    triangleFrames = [
+        {transform: `rotate(${rotationStart})`},
+        {transform: `rotate(${rotationEnd})`}
+    ]
+
+    scoreboardTriangles.forEach(tri => {
+        tri.animate(triangleFrames,{duration:500,fill:'forwards'});
+    })
+
+    
+    Promise.all(scoreboardWrapper.getAnimations().map((animation) => {
+        return animation.finished;    
+    })).then(() => {
+        if (show) {
+            scoreboardDiv.style.display = 'block';
+            currentScoreDiv.style.display = 'block';
+        }
+    })
+}
+
 
 const gameBoard = document.querySelector('#gameBoard');
 const gameOverlay = document.querySelector('#gameOverlay');
@@ -530,7 +590,7 @@ const diff = gameOverlay.querySelector('#difficulty');
 const scoreboard = document.querySelector('#scoreboard');
 const currentScore = document.querySelector('#currentScore');
 const resetScores = document.querySelector("#resetScores");
-const scoreboardSlide = document.querySelector('#scoredboardSlide');
+const scoreboardSlide = document.querySelector('#scoreboardSlide');
 const instructionsSlide = document.querySelector('#instructionsSlide');
 const scoreboardWrapper = document.querySelector('#scoreboardWrapper');
 const instructions = document.querySelector('#instructions');
@@ -538,7 +598,9 @@ const instructionsWrapper = document.querySelector('#instructionsWrapper')
 const gameWrapper = document.querySelector('#gameWrapper');
 const centerContent = document.querySelector('#centerContent');
 const instructionTriangles = document.querySelectorAll('#instructionsSlide .triangle');
-const scoreboardTriangles = document.querySelectorAll('#scorebordSlide .triangle');
+const scoreboardTriangles = document.querySelectorAll('#scoreboardSlide .triangle');
+const scoreboardDiv = document.querySelector('#scoreboardDiv');
+const currentScoreDiv = document.querySelector('#currentScoreDiv');
 
 
 let goodSquares;
@@ -565,5 +627,5 @@ populateScoreboard();
 
 resetScores.addEventListener('click',resetScoreboard);
 
-// scoreboardWrapper.addEventListener('click', revealScoreboard);
+scoreboardSlide.addEventListener('click', toggleScoreboard);
 instructionsSlide.addEventListener('click', toggleInstructions);

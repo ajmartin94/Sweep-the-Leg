@@ -101,14 +101,13 @@ body {
 #gameAside {
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 #scoreboardWrapper {
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 20px;
+    align-items: center;
     height: 200px;
 }
 
@@ -201,10 +200,18 @@ body {
 #scoreboardWrapper p {
     text-align: center;
     font-size: 18px;
+    margin: 5px;
 }
 
 #scoreboardDiv {
     border-top: 1px solid black;
+    display: none;
+    margin-left: 10px;
+}
+
+#currentScoreDiv {
+    display: none;
+    margin-left: 10px;
 }
 
 #scoreboard {
