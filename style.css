@@ -111,23 +111,6 @@ body {
     height: 200px;
 }
 
-#cursorOptions {
-    /* width: 100px;
-    height: 200px;
-    background: green; */
-}
-
-#scoreboard {
-    /* width: 100px;
-    height: 200px;
-    background: purple; */
-}
-
-/* #gameHeader h1 {
-    font-family: sans-serif;
-    line-height: 50%;
-} */
-
 .mineGrid,.gridCover {
     width: 100%;
     height: 100%;
@@ -155,7 +138,7 @@ body {
 
 .mineGrid p {
     text-align: center;
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 12px;
 }
 
@@ -176,7 +159,7 @@ body {
 
 #gameOverlay p {
     text-align: center;
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: normal;
     font-size: 24px;
     border-radius: 10px;
@@ -231,7 +214,7 @@ body {
 }
 
 .button {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     border-radius: .15em;
     font-weight: 400;
     background: #C90707;
@@ -240,11 +223,6 @@ body {
     padding: .40em;
 }
 
-/* .button:hover {
-    background: #162656;
-    box-shadow:inset 0 -0.6em 0 -0.35em #ffffffab;
-    color: white;
-} */
 
 #gameHeader img {
     height: 1.5em;
@@ -253,7 +231,7 @@ body {
 }
 
 #gameHeader p {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: white;
     margin: 0;
 }
@@ -268,11 +246,6 @@ body {
     text-align: right;
 }
 
-/* #timerDiv p{
-    text-align: center;   
-    color: white;
-} */
-
 #instructions * {
     color: white;
 }
@@ -282,7 +255,6 @@ body {
 }
 
 #scoreboardSlide {
-    /* transform: rotate(-90deg); */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -298,7 +270,7 @@ body {
 }
 
 .slideText {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 24px;
     color: white;
 }
