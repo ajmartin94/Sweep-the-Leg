@@ -457,6 +457,42 @@ function resetScoreboard() {
     populateScoreboard();
 }
 
+function revealInstructions() {
+    instructionsWrapper.style.width = `${gameWrapper.getBoundingClientRect().width}px`;
+    instructionsWrapper.style.display = 'block';
+    const height = instructionsWrapper.offsetHeight;
+    instructionsWrapper.style.display = 'none';
+    centerContent.style.position = 'absolute';
+
+    containerFrames = [
+        {marginBottom: '0'},
+        {marginBottom: `${-height}px`}
+    ]
+
+    centerContent.animate(containerFrames,1000);
+
+    // wrapperFrames = [
+    //     {transform: 'translateY(-200px)'},
+    //     {transform: 'translateY(0)'}
+    // ]
+
+    // instructionsWrapper.animate(wrapperFrames,1000);
+
+    slideFrames = [
+        {transform: 'translateY(0)'},
+        {transform: `translateY(${height/2}px)`}
+    ]
+
+    instructionsSlide.animate(slideFrames,1000);
+
+    Promise.all(instructionsSlide.getAnimations().map((animation) => {
+        return animation.finished;    
+    })).then(() => {
+        instructionsWrapper.style.display = 'block';
+        centerContent.style.position = 'initial';
+    })
+}
+
 const gameBoard = document.querySelector('#gameBoard');
 const gameOverlay = document.querySelector('#gameOverlay');
 const timerText = document.querySelector('#timer');
@@ -472,6 +508,12 @@ const diff = gameOverlay.querySelector('#difficulty');
 const scoreboard = document.querySelector('#scoreboard');
 const currentScore = document.querySelector('#currentScore');
 const resetScores = document.querySelector("#resetScores");
+const scoreboardSlide = document.querySelector('#scoredboardSlide');
+const instructionsSlide = document.querySelector('#instructionsSlide');
+const scoreboardWrapper = document.querySelector('#scoreboardWrapper');
+const instructionsWrapper = document.querySelector('#instructions');
+const gameWrapper = document.querySelector('#gameWrapper');
+const centerContent = document.querySelector('#centerContent');
 
 
 let goodSquares;
@@ -501,3 +543,6 @@ let scoreboardScores = JSON.parse(localStorage.getItem('scores'));
 populateScoreboard();
 
 resetScores.addEventListener('click',resetScoreboard);
+
+// scoreboardWrapper.addEventListener('click', revealScoreboard);
+instructionsSlide.addEventListener('click', revealInstructions);

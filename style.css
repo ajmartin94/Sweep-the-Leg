@@ -55,6 +55,11 @@ body {
 
 #gameBoardWrapper {
     position: relative;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #gameOverlay {
@@ -83,7 +88,6 @@ body {
 #gameBoard {
     display: grid;
     grid-gap: 3px;
-    margin: 20px;
     padding: 15px;
     background: grey;
     border-radius: 20px;
@@ -189,7 +193,7 @@ body {
     display: none;
 }
 
-#gameAside p {
+#scoreboardWrapper p {
     text-align: center;
     font-size: 18px;
 }
@@ -277,9 +281,10 @@ body {
 .slideText {
     font-family: sans-serif;
     font-size: 24px;
+    color: white;
 }
 
-#scoreboardSlide:hover {
+#scoreboardSlide:hover, #instructionsSlide:hover{
     border: 1px solid white;
     color: black;
     border-radius: 10px;
@@ -292,4 +297,22 @@ body {
 
 #scoreboardSlide .triangle { 
     transform: rotate(90deg);
+}
+
+#instructionsSlide {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    width: 220px;
+    height: 30px;
+    padding: 10px;
+    border: 1px solid #00000000;
+}
+
+#instructionsSlide .triangle {
+    transform: rotate(180deg);
+}
+
+#instructions {
+    display: none;
 }
