@@ -499,3 +499,5 @@ document.querySelector('#easyWin').addEventListener('click',() => {
 let scoreboardScores = JSON.parse(localStorage.getItem('scores'));
 
 populateScoreboard();
+
+resetScores.addEventListener('click',resetScoreboard);
