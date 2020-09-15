@@ -1,8 +1,23 @@
 /* http://paletton.com/#uid=73l0u0kllllaFw0g0qFqFg0w0aF */
 /* http://paletton.com/#uid=7000u0kuUpglmvHrjuaz-kHHTfu */
+/* red shades: 
+ - #C90707
+ - #7B0000 - dark
+
+ orange shades:
+ - #C95F07
+ - #FDA154 - light
+ 
+ green shades:
+ - #06A106
+
+ blue shades: 
+ - #047979
+ 
+ */
 
 body {
-    background: #246068;
+    background: white;
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -16,7 +31,7 @@ body {
 }
 
 #centerContent {
-    background: #AA8639;
+    background: #7B0000;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -50,10 +65,11 @@ body {
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #805e15dc;
+    background-color: #757575d7;
     z-index: 1;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
 }
 
 #overlayWrapper {
@@ -68,6 +84,9 @@ body {
     display: grid;
     grid-gap: 3px;
     margin: 20px;
+    padding: 15px;
+    background: grey;
+    border-radius: 20px;
 }
 
 #gameAside {
@@ -111,7 +130,7 @@ body {
 }
 
 .gridCover {
-    background: #50608F;
+    background: #06A106;
     position: absolute;
     cursor: pointer;
 }
@@ -149,7 +168,7 @@ body {
     border-radius: 10px;
     margin: 0;
     padding: 5px;
-    background: #FFE4AA;
+    background: white;
 }
 
 #gameReport {
@@ -193,8 +212,8 @@ body {
     font-family: sans-serif;
     border-radius: .15em;
     font-weight: 400;
-    background: #7986AC;
-    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+    background: #C90707;
+    box-shadow:inset 0 -0.6em 0 -0.35em #0000002b;
     cursor: pointer;
     padding: .40em;
 }
@@ -221,5 +240,14 @@ body {
 }
 
 #timerDiv p{
- text-align: center;   
+    text-align: center;   
+    color: white;
+}
+
+#instructions * {
+    color: white;
+}
+
+#gameAside * {
+    color: white;
 }
