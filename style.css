@@ -43,8 +43,10 @@ body {
 #gameHeader {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
+    border-bottom: 2px solid white;
+    margin: 10px;
 }
 
 #gameWrapper {
@@ -243,17 +245,24 @@ body {
 
 #gameHeader p {
     font-family: sans-serif;
-    font-size: 28px;
-    text-align: left;
     color: white;
-    width: 100%;
-    border-bottom: 2px solid white;
+    margin: 0;
 }
 
-#timerDiv p{
+#title {
+    font-size: 28px;
+    text-align: left;
+}
+
+#timer {
+    font-size: 18px;
+    text-align: right;
+}
+
+/* #timerDiv p{
     text-align: center;   
     color: white;
-}
+} */
 
 #instructions * {
     color: white;
