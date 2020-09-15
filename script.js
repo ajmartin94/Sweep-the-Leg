@@ -182,11 +182,13 @@ function addMine() {
 }
 
 function revealNumber() {
+    this.style['z-index'] = '2';
+
     const gridFrames = [
         [
             {width: '100%',height: '100%'},
-            {width: '400%', height: '400%',background: '#ff0000'},
-            {width: '400%', height: '400%',background: '#ff0000'},
+            {width: '400%', height: '400%',background: '#ff0000', offset: .8},
+            {background: 'none'},
         ],
         [
             {width: '100%',height: '100%', transform: 'rotate(0)'},
@@ -208,7 +210,7 @@ function revealNumber() {
         ]
     ]
 
-    let randAnim = Math.round(Math.random()*(gridFrames.length-1));
+    let randAnim = Math.ceil(Math.random()*(gridFrames.length-1));
 
     const gridNum = gridData[this.dataset.row][this.dataset.col];
     this.parentElement.classList.remove('hidden');  
