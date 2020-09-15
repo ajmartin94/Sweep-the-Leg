@@ -365,6 +365,8 @@ function resetBoard(rows,cols,totalMines) {
             const pTag = document.createElement('p');
             if (rows < 20) {
                 pTag.classList.add('bigText');
+            } else {
+                pTag.classList.add('smallText');
             }
             gridRevealedDiv.appendChild(pTag);
 
