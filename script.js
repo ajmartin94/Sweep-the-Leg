@@ -457,39 +457,62 @@ function resetScoreboard() {
     populateScoreboard();
 }
 
-function revealInstructions() {
+function toggleInstructions() {
     instructionsWrapper.style.width = `${gameWrapper.getBoundingClientRect().width}px`;
-    instructionsWrapper.style.display = 'block';
-    const height = instructionsWrapper.offsetHeight;
-    instructionsWrapper.style.display = 'none';
-    centerContent.style.position = 'absolute';
+    let yMove;
+    let yStart;
+    let rotationEnd;
+    let rotationStart;
+    let show;
+
+    if (instructionsWrapper.offsetHeight === 0) {
+        instructionsWrapper.style.display = 'block';
+        yMove = instructionsWrapper.offsetHeight;
+        rotationEnd = '0deg';
+        rotationStart = '180deg';
+        show = true;
+        yStart = 0;
+        instructionsWrapper.style.display = 'none';
+    } else {
+        yMove = -1*instructionsWrapper.offsetHeight;
+        rotationEnd = '180deg';
+        rotationStart = '0deg';
+        show = false; 
+        yStart = -1*yMove;
+    }
 
     containerFrames = [
-        {marginBottom: '0'},
-        {marginBottom: `${-height}px`}
+        {height: `${centerContent.offsetHeight}px`},
+        {height: `${centerContent.offsetHeight + yMove}px`}
     ]
 
     centerContent.animate(containerFrames,1000);
 
-    // wrapperFrames = [
-    //     {transform: 'translateY(-200px)'},
-    //     {transform: 'translateY(0)'}
-    // ]
-
-    // instructionsWrapper.animate(wrapperFrames,1000);
-
     slideFrames = [
-        {transform: 'translateY(0)'},
-        {transform: `translateY(${height/2}px)`}
+        {transform: `translateY(${yStart}px)`},
+        {transform: `translateY(${yMove}px)`}
     ]
 
     instructionsSlide.animate(slideFrames,1000);
 
+    triangleFrames = [
+        {transform: `rotate(${rotationStart})`},
+        {transform: `rotate(${rotationEnd})`}
+    ]
+
+    instructionTriangles.forEach(tri => {
+        tri.animate(triangleFrames,{duration:1000,fill:'forwards'});
+    })
+
     Promise.all(instructionsSlide.getAnimations().map((animation) => {
         return animation.finished;    
     })).then(() => {
-        instructionsWrapper.style.display = 'block';
-        centerContent.style.position = 'initial';
+        if (show) {
+            instructionsWrapper.style.display = 'block';
+        } else {
+            instructionsWrapper.style.display = 'none';
+        }
+        
     })
 }
 
@@ -514,6 +537,8 @@ const scoreboardWrapper = document.querySelector('#scoreboardWrapper');
 const instructionsWrapper = document.querySelector('#instructions');
 const gameWrapper = document.querySelector('#gameWrapper');
 const centerContent = document.querySelector('#centerContent');
+const instructionTriangles = document.querySelectorAll('#instructionsSlide .triangle');
+const scoreboardTriangles = document.querySelectorAll('#scorebordSlide .triangle');
 
 
 let goodSquares;
@@ -545,4 +570,4 @@ populateScoreboard();
 resetScores.addEventListener('click',resetScoreboard);
 
 // scoreboardWrapper.addEventListener('click', revealScoreboard);
-instructionsSlide.addEventListener('click', revealInstructions);
+instructionsSlide.addEventListener('click', toggleInstructions);
