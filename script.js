@@ -558,10 +558,10 @@ let username;
 resetBoard(10,10,15);
 difficultyScreen();
 
-document.querySelector('#easyWin').addEventListener('click',() => {
-    revealAll();
-    winSequence();
-});
+// document.querySelector('#easyWin').addEventListener('click',() => {
+//     revealAll();
+//     winSequence();
+// });
 
 let scoreboardScores = JSON.parse(localStorage.getItem('scores'));
 
